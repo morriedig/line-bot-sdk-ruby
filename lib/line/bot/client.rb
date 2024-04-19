@@ -255,6 +255,13 @@ module Line
         post(endpoint, endpoint_path, payload, credentials)
       end
 
+      def loading_animation(to, second, headers: {}, payload: {})
+        channel_token_required
+        endpoint_path = '/bot/chat/loading/start'
+        payload = payload.merge({ chatId: to, loadingSeconds: second }).to_json
+        post(endpoint, endpoint_path, payload, credentials.merge(headers))
+      end
+
       # Send messages to multiple users using userIds.
       #
       # @param to [Array, String] Array of userIds
